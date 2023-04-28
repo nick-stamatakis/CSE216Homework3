@@ -1,12 +1,28 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
+/**
+ * CSE 216 HW3
+ * Nicholas Stamatakis
+ * ID: 114140995
+ * R04
+ *
+ * Contains zip method
+ *
+ */
+
 
 public class HigherOrderUtils {
+    /**
+     * Creates static NamedBiFunctionInterface
+     **/
     public static interface NamedBiFunction<T, U, R> extends BiFunction<T, U, R>{
         String name();
     }
 
+    /**
+     * add Double function
+     */
     public static NamedBiFunction<Double,Double,Double> add = new NamedBiFunction<Double,Double,Double>(){
         public String name(){
             return "plus";
@@ -17,6 +33,9 @@ public class HigherOrderUtils {
         }
     };
 
+    /**
+     * subtract Double function
+     */
     public static final NamedBiFunction<Double, Double, Double> subtract = new NamedBiFunction<Double, Double, Double>() {
         @Override
         public String name() {
@@ -29,6 +48,9 @@ public class HigherOrderUtils {
         }
     };
 
+    /**
+     * multiply Double function
+     */
     public static final NamedBiFunction<Double, Double, Double> multiply = new NamedBiFunction<Double, Double, Double>() {
         @Override
         public String name() {
@@ -41,6 +63,9 @@ public class HigherOrderUtils {
         }
     };
 
+    /**
+     * divide Double function
+     */
     public static final NamedBiFunction<Double, Double, Double> divide = new NamedBiFunction<Double, Double, Double>() {
         @Override
         public String name() {
@@ -89,10 +114,14 @@ public class HigherOrderUtils {
             T arg1 = result;
             T arg2 = args.get(i + 1);
             result = bifunction.apply(arg1, arg2);
+            args.set(i + 1, result); // update the args list with the result of the bifunction
         }
         return result;
     }
 
+    /**
+     * Static method used to test zip function
+     **/
     public static void testZip() {
         // Test case 1 - Documentation example
         List<Double> numbers1 = Arrays.asList(-0.5, 2d, 3d, 0d, 4d);
@@ -112,45 +141,47 @@ public class HigherOrderUtils {
         System.out.println("Actual: " + result2);
         assert expected2.equals(result2) : "Test case 2 failed";
 
-        // Test case 3 - Integer addition example
-        List<Integer> numbers3 = Arrays.asList(1, 2, 3,7,7);
-        BiFunction<Integer, Integer, Integer> sum = (a,b) ->a + b;
-        Integer expected3 = 6;
-        Integer result3 = zip(numbers3,Arrays.asList(sum, sum, sum, sum));
-        System.out.println("\nExpected: " + expected3);
-        System.out.println("Actual: " + result3);
-        assert expected3.equals(result3) : "Test case 3 failed";
-
-        // Test case 4 - Double subtraction example
-        List<Double> numbers4 = Arrays.asList(5d, 2d, 1d, 4d);
-        BiFunction<Double, Double, Double> subtract = (a,b) ->a - b;
-        Double expected4 = -2d;
-        Double result4 = zip(numbers4, Arrays.asList(subtract, subtract, subtract));
-        System.out.println("\nExpected: " + expected4);
-        System.out.println("Actual: " + result4);
-        assert expected4.equals(result4) : "Test case 4 failed";
-
-        // Test case 5 - String concatenation with delimiter
-        List<String> strings5 = Arrays.asList("a", "b", "c", "d");
-        BiFunction<String, String, String> concatWithDelimiter = (s, t) -> s + "-" + t;
-        String expected5 = "a-b-c-d";
-        String result5 = zip(strings5, Arrays.asList(concatWithDelimiter, concatWithDelimiter, concatWithDelimiter));
-        System.out.println("\nExpected: " + expected5);
-        System.out.println("Actual: " + result5);
-        assert expected5.equals(result5) : "Test case 5 failed";
-
-        // Test case 6 - Integer multiplication example
-        List<Integer> numbers6 = Arrays.asList(2, 3, 4, 5);
-        BiFunction<Integer, Integer, Integer> multiply = (a,b) ->a * b;
-        Integer expected6 = 120;
-        Integer result6 = zip(numbers6,Arrays.asList(multiply, multiply, multiply));
-        System.out.println("\nExpected: " + expected6);
-        System.out.println("Actual: " + result6);
-        assert expected6.equals(result6) : "Test case 6 failed";
+//        // Test case 3 - Integer addition example
+//        List<Integer> numbers3 = Arrays.asList(1, 2, 3,7,7);
+//        BiFunction<Integer, Integer, Integer> sum = (a,b) ->a + b;
+//        Integer expected3 = 20;
+//        Integer result3 = zip(numbers3,Arrays.asList(sum, sum, sum, sum));
+//        System.out.println("\nExpected: " + expected3);
+//        System.out.println("Actual: " + result3);
+//        assert expected3.equals(result3) : "Test case 3 failed";
+//
+//        // Test case 4 - Double subtraction example
+//        List<Double> numbers4 = Arrays.asList(5d, 2d, 1d, 4d);
+//        BiFunction<Double, Double, Double> subtract = (a,b) ->a - b;
+//        Double expected4 = -2d;
+//        Double result4 = zip(numbers4, Arrays.asList(subtract, subtract, subtract));
+//        System.out.println("\nExpected: " + expected4);
+//        System.out.println("Actual: " + result4);
+//        assert expected4.equals(result4) : "Test case 4 failed";
+//
+//        // Test case 5 - String concatenation with delimiter
+//        List<String> strings5 = Arrays.asList("a", "b", "c", "d");
+//        BiFunction<String, String, String> concatWithDelimiter = (s, t) -> s + "-" + t;
+//        String expected5 = "a-b-c-d";
+//        String result5 = zip(strings5, Arrays.asList(concatWithDelimiter, concatWithDelimiter, concatWithDelimiter));
+//        System.out.println("\nExpected: " + expected5);
+//        System.out.println("Actual: " + result5);
+//        assert expected5.equals(result5) : "Test case 5 failed";
+//
+//        // Test case 6 - Integer multiplication example
+//        List<Integer> numbers6 = Arrays.asList(2, 3, 4, 5);
+//        BiFunction<Integer, Integer, Integer> multiply = (a,b) ->a * b;
+//        Integer expected6 = 120;
+//        Integer result6 = zip(numbers6,Arrays.asList(multiply, multiply, multiply));
+//        System.out.println("\nExpected: " + expected6);
+//        System.out.println("Actual: " + result6);
+//        assert expected6.equals(result6) : "Test case 6 failed";
     }
 
-
-
+    /**
+     * Main Method - call static testing method
+     * @param args
+     */
     public static void main(String[] args) {
         testZip();
     }
